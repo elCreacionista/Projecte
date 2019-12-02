@@ -240,13 +240,20 @@ public class Matrix {
         return mult(mat1,power(mat2,-1));
     }
 
-    static double[][] invert(double[][] mat) {
+ static double[][] invert(double[][] mat) {
         double[][] matrix= new double[mat.length][mat[0].length];
         if (determinant(mat)==0) {System.out.println("És una matriu singular");}
         mat=transpose(mat);
+        int signo=1;
         for (int i = 0; i <mat.length ; i++) {
             for (int j = 0; j <mat[0].length ; j++) {
-                matrix[i][j]=valores(i) *determinant(getMinor(mat,i,j))/determinant(mat);
+                matrix[i][j]=signo *determinant(getMinor(mat,i,j))/determinant(mat);
+                if (signo==1)signo=-1;
+                else signo=1;
+            }
+            if (mat.length%2==0){
+                if (signo==1)signo=-1;
+                else signo=1;
             }
         }
         return matrix;
